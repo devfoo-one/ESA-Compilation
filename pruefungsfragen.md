@@ -14,17 +14,86 @@
 #### Reflection
 
 ##### 1. Wie können Sie für einen als `String` gegebenen Klassennamen eine Instanz der betreffenden Klasse erzeugen?
+
+```java
+// kurze Variante
+Object instance = Class.forName("classname").newInstance();
+
+// lange Variante
+String classname = "foo";
+Class<?> klass = Class.forName(classname);
+Object instance = klass.newInstance();
+```
+
 ##### 2. Welche Voraussetzung muss gegeben sein, damit Sie auf einer gegebenen Instanz von `java.lang.Class` erfolgreich die Methode `newInstance()` aufrufen können?
+
+Die Klasse muss über einen Default-Konstruktor verfügen.
+
 ##### 3. Wie können Sie ermitteln, über welche Attribute und Methoden eine gegebene Klasse verfügt?
+
+- Attribute (`java.lang.reflect.Field`)
+    - `java.lang.Class.getFields()` - alle öffentlichen Attribute incl. geerbter Attribute
+    - `java.lang.Class.getDeclaredFields()` - nur von dieser Klasse selbst deklarierte Attribute
+    - `java.lang.Class.getField(String name)`
+    - `java.lang.Class.getDeclaredField(String name)`
+- Methoden (`java.lang.reflect.Method`)
+    - `java.lang.Class.getMethods()` - alle öffentlichen Methoden incl. geerbter Methoden
+    - `java.lang.Class.getDeclaredMethods()` - nur von dieser Klasse selbst deklarierte Methoden
+    - `java.lang.Class.getMethod(String name)`
+    - `java.lang.Class.getDeclaredMethod(String name, Class<>... parameterTypes)`
+
 ##### 4. In welcher Form wird Ihnen die Information über die Eigenschaften einer Methode oder eines Attributs einer Klasse durch die Reflection API zur Verfügung gestellt?
+
+- Methode als Instanz von `java.lang.reflect.Field`
+    - `Field.getType`...
+- Attribut als Instanz von `java.lang.reflect.Method`
+    - `Method.getReturnType()`...
+    - `Method.getParameterTypes()`...
+
 ##### 5. Worin unterscheiden sich die Methoden `getFields()` und `getDeclaredFields()` ?
+
+`getFields()` liefert alle Attribute incl. der geerbten. `getDeclaredFields()` nur die explizit in dieser Klasse deklarierten.
+
 ##### 6. Was wird durch eine Instanz der Klasse `java.lang.Class` repräsentiert? Nennen Sie Beispiele.
+
+Alle Member einer Klasse, Bsp:
+
+- Namen aller Instanz- und Klassenattribute und deren Modifikatoren
+- Signaturen aller Instanz- und Klassenmethoden und deren Modifikatoren
+- alle inneren Klassen
+- alle implementierten Interfaces
+- alle Superklassen
+
 ##### 7. Wie können Sie ermitteln, ob eine durch ein `java.lang.Method` Objekt repräsentierte Methode `public` ist?
+
+***ICH DENKE ER MEINT `java.lang.reflect.Method`. `java.lang.Method` GIBT ES NICHT***
+
+`java.lang.reflect.Modifier.isPublic(Method.getModifiers())`
+
+- `java.lang.reflect.Method.getModifiers()` liefert einen `int` Wert.
+    - `java.lang.reflect.Field.getModifiers()` und `java.lang.Class.getModifiers()` ebenfalls
+- dieser kann via getestet werden`java.lang.reflect.Modifier.isPublic(int mod)`
+
 ##### 8. In welcher Form wird Ihnen die Information über die Modifikatoren einer Methode oder eines Attributs, z.B. deren Sichtbarkeit, zur Verfügung gestellt?
+
+Als `int` Wert.
+
 ##### 9. Wie können Sie gezielt, d.h. unter Angabe eines Namens, auf eine Methode oder ein Attribut einer Klasse zugreifen?
+
+`java.lang.Class.getMethod(String name, Class<?>... parameterTypes)` bzw. `java.lang.Class.getField(String name)`
+Bei `getMethod` muss noch ein Array aus Klassen übergeben werden, damit die korrekte Methodensignatur gefunden werden kann.
+
 ##### 10. Wie können Sie Instanzmethoden auf Objekten aufrufen, deren Klasse Sie zur Implementierungszeit nicht kennen?
+
+`java.lang.reflect.Method.invoke(Object obj, Object... args)` ruft die Methode auf der konkreten Instanz `obj` auf.
+
 ##### 11. Wie kann überprüft werden, ob der Datentyp eines Attributs oder ein Rückgabe- oder Argumenttyp einer Methode ein primitiver Datentyp ist?
+
+Durch Abgleich mit der entsprechenden Konstante auf der entsprechenden Wrapper-Klasse. `Field.getType() == java.lang.Boolean.TYPE` ergibt `true`, wenn das entsprechende `Field` vom Type eines primitiven `boolean` ist.
+
 ##### 12. Inwiefern gelten für den Zugriff auf Attribute und Methoden mittels Reflection die durch deren Sichtbarkeit ausgedrückten Zugriffsbeschränkungen?
+
+Sie gelten ebenfalls. Der Zugriffsberechtigung kann jedoch via `setAccessible()` geändert werden.
 
 #### Annotationen
 
