@@ -215,7 +215,7 @@ Die HTTP Methode. Sie gibt an auf welche Art und Weise auf die, per URL spezifiz
 
 ##### 5. Wie soll gemäß HTTP Spezifikation der Erfolg oder Fehlschlag der Bearbeitung eines HTTP Requests durch den Server an den Client übermittelt werden?
 
-Per Status-Code.
+Per HTTP Status Code.
 
 - *2xx* - Bearbeitung des Requests erfolgreich
 - *3xx* - "Umleitung" des Requests
@@ -341,14 +341,55 @@ Das wiederholte löschen eines Objekts hat die gleiche Auswirkung wie das einmal
 #### HTTP und REST
 
 ##### 1. Was sind Web Services?
+
+Web Services sind *Anwendungen*, die *über das Internet* beschrieben und aufgerufen werden können.
+
 ##### 2. Welche HTTP Methoden werden in REST Services üblicherweise zur Identifikation der vier CRUD Operationen *Create, Read, Update* und *Delete* verwendet?
-##### 3. Was spricht gegen Identifikation einer CRUD Methode durch ein URI Segment, z.B. `/items/7654/?action=updat`
+
+| CRUD   | HTTP     |
+|:-------|:---------|
+| Create | `POST`   |
+| Read   | `GET`    |
+| Update | `PUT`    |
+| Delete | `DELETE` |
+
+##### 3. Was spricht gegen Identifikation einer CRUD Methode durch ein URI Segment, z.B. `/items/7654/?action=update`
+
+HTTP verfügt über Methoden die die vier CRUD Operationen identifizieren können.
+
 ##### 4. Inwiefern kann die Ausführung einer Löschoperationen mittels eines Requests wie `GET /items/7654/?action=delete` als fragwürdig erachtet werden?
+
+- HTTP verfügt selbst über eine `DELETE` Methode, diese sollte verwendet werden
+- `GET` steht für lesenden Zugriff und wird ggf. auch von Suchmaschinen ausgeführt
+- keiner rechnet damit, dass `GET` Daten verändert / löscht.
+
 ##### 5. Wie bringen Sie in REST Services üblicherweise die Unterscheidung zwischen einer `readAllItems()` Operation, welche alle Instanzen eines Datentyps ausliest, und einer `readItem()` Operation zum Ausdruck, welche nur eine einzelne – identifizierbare – Instanz ausliest? Für beide Zugriffe soll dieselbe HTTP Methode verwendet werden. Geben Sie ein Beispiel an.
+
+Der Unterschied kann mittels verschiedener URLs ausgedrückt werden.
+
+- `readAllItems()`: `GET http://.../items/`
+- `readItem(1234)`: `GET http://.../items/1234` (Zugriff auf item mit der ID 1234)
+
 ##### 6. Wie wird in REST Services üblicherweise der Erfolg oder Fehlschlag einer Operation zum Ausdruck gebracht?
+
+Per HTTP Status Code.
+
+- *2xx* - Bearbeitung des Requests erfolgreich
+- *3xx* - "Umleitung" des Requests
+- *4xx* - Fehler im Request
+- *5xx* - serverseitiger Fehler bei der Verarbeitung des Requests
+
 ##### 7. Beschreiben Sie (in wenigen Worten) die Grundidee, die einer REST Architektur zugrunde liegt?
+
+Alle Daten die eine Web Anwendung zur Bearbeitung der Anfrage und zur ggf. dafür erforderlichen Identifikation des Interaktionszustands zwischen Client und Server benötigt, werden durch die Anfrage selbst und unabhängig von der zwischen einem bestimmten Client und einem bestimmten Server bestehenden Verbindung bereit gestellt.
+
 ##### 8. Was sind die wesentlichen Vorzüge einer REST Architektur?
+
+Hohe Skalierbarkeit und Flexibilität des Servers, da jede Anfrage des Clients von einem neuen Server bearbeitet werden kann (bspw. auch für Load Balancing gut).
+
 ##### 9. Welche beiden textuellen Datenrepräsentationsformate werden für die Übermittlung von Instanzen komplexer Datentypen an eine Webanwendung mit REST Service üblicherweise verwendet?
+
+*XML* oder *JSON*
 
 #### JAX-RS und Resteasy
 
