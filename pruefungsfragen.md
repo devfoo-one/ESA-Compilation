@@ -508,11 +508,33 @@ HTTP ist ein Anwendungsprotokoll, welches bereits über die Ausdrucksmittel *Hea
 #### JAX-WS und JAXB
 
 ##### 1. Wozu dienen JAX-WS Annotationen und wofür wird JAXB verwendet?
+
+- *JAX-WS* Annotationen dienen zur Beschreibung von Klassen und Methoden zur automatischen Erzeugung einer WSDL.
+- *JAXB* dient zur Beschreibung des Datenmodells, damit daraus ein XML Schema erzeugt werden kann, welches dann in der WSDL verwendet wird.
+
 ##### 2. Für welches Ausdrucksmittel in Java ist auf jeden Fall die Verwendung einer JAXB Annotation erforderlich, um eine benutzbare WSDL zu generieren? Welches Defizit weist diese Annotation im Ggs. zur annotierten Javaklasse auf?
+
+Wenn eine Web Service Operation als Argument oder Rückgabetyp *abstrakte Klassen* verwendet, müssen die konrekten Klassen die hierfür auftreten können explizit mittels `@XmlSeeAlso` aufgelistet werden.
+Dadurch entsteht eine konkrete Abhängigkeit einer abstrakten Klasse zu ihrer konkreten Unterklasse.
+
+```java
+@XmlSeeAlso({org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem.class})
+public abstract class AbstractProduct implements Serializable, GenericCRUDEntity {...}
+```
+
 ##### 3. Wie kann das Problem abstrakter Klassen bei Verwendung von JSON als Datenübertragungsformat für JAX-RS Services gelöst werden? Besteht das oben genannte Defizit auch hier?
+
+Durch die Verwendung von `@JsonTypeInfo`. Das Defizit besteht nicht, da keine Abhängigkeiten zur abstrakten Klasse aufgebaut werden, sondern lediglich im übertragenen JSON die konkrete Klasse spezifiziert wird.
+
+```json
+{"@class":"org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem","id":0,"name":"Schusterjunge","price":0,"productType":"ROLL","expirationAfterStocked":720}
+```
 ##### 4. Beschreiben Sie die beiden Schritte, die durchlaufen werden,um auf Basis JAX-WS/JAXB-annotierter Javaklassen unter Verwendung des JBoss Application Servers einen serverseitigen Web Service und einen diesen Service nutzenden Client bereitzustellen? Wann werden die Schritte ausgeführt (d.h. zur Entwicklungszeit, zum Zeitpunkt des Deployments oder zur Laufzeit)?
+
 ##### 5. Wie ist es möglich, aus einer um JAX-WS Annotationen erweiterten Javaklasse, die Teil einer Java EE Web Applikation ist, auf datentragende Komponenten zuzugreifen, z.B. auf den `ServletContext`?
+
 ##### 6. Können in Javaklassen, die mittels JAX-WS als Web Services verfügbar gemacht werden, Instanzattribute verwendet werden, um über Daten über mehrere Aufrufe eines Clients hinweg zu speichern? Begründen Sie Ihre Antwort.
+
 ##### 7. Welchen offensichtlichen Unterschied weisen die auf Basis einer WSDL Beschreibung automatisch generierten Klassen des von einem Service verwendeten Datenmodells im Ggs. zu den originalen Klassen auf?
 
 
