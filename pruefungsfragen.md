@@ -445,11 +445,50 @@ Durch Dependency Injection mittels der `@Context` Annotation kann ein Zugriff au
 #### WSDL und XML Schema
 
 ##### 1. Wozu dient die WSDL?
+
+Die *Web Service Description Language (WSDL)* dient dazu, die Funktionalität eines Web Services
+
+- vollständig
+- implementierungsunabhängig
+- programmiersprachenunabhängig
+- maschinenlesbar
+
+zu beschreiben.
+
 ##### 2. Was wird in einem WSDL Dokument beschrieben?
+
+- Welche *Funktionen / Methoden* werden durch den Web Service zur Verfügung gestellt?
+- Welche *Typen von Daten* werden den Operationen übergeben bzw. von diesen zurückgegeben?
+- In *welcher Form* kann ein Client auf die verfügbaren Operationen zugreifen?
+    - Kommunikationsart, bspw. SOAP
+    - Angabe konkreter Adressen
+
 ##### 3. Was kann bei Verwendung von JAX-RS die Aufgabe einer WSDL übernehmen? Welche Einschränkung besteht hierbei?
+
+Ein, mit JAX-RS Annotationen annotiertes Java-Interface.
+Dieses kann jedoch auch nur von Java-Clients verwendet werden.
+
 ##### 4. Was lässt sich mittels XML Schema beschreiben? Welche Ausdrucksmittel stehen hierfür im Einzelnen zur Verfügung?
+
+> Ein Datenmodell auf Basis einfacher Datentypen, komplexer Datentypen Listen und Vererbungsbeziehungen.
+
+XML Schema ist eine *Datenmodellierungssprache*, die in XML Syntax die Deklaration von objektorientierten Datenmodellen u.a. mit den folgenden Ausdrucksmitteln erlaubt:
+
+- *generische* einfache Datentypen (z.B. String, Integer, Boolean)
+- *spezifische* einfache Datentypen (Einschränkungen von generischen Datentypen)
+- *komplexe* Datentypen
+- *Listen* einfacher oder komplexer Datentypen
+- *Vererbungsbeziehungen* komplexer Datentypen
+
 ##### 5. Wozu wird XML Schema bei der Erstellung eines WSDL Dokuments verwendet?
+
+Zur Deklaration anwendungsspezifischer Datentypen, welche als Argument oder Rückgabewerte von Operationen verwendet werden.
+
+*Kurz: Zur Beschreibung des Datenmodells des Services.*
+
 ##### 6. Weshalb ist die automatische Generierung von Java-Komponenten aus einer WSDL Beschreibung mit beliebigen anwendungsspezifischen Datentypen überhaupt möglich?
+
+Weil sich ein XML Schema Datenmodell in ein Java Datenmodell übersetzen lässt.
 
 #### SOAP
 
