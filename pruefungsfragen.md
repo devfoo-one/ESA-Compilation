@@ -299,7 +299,7 @@ Durch Einträge in der `web.xml` oder durch Annotationen an den entsprechenden K
 ##### 12. Inwiefern können die Ausdrucksmittel für Java EE Web Applikationen als ein Framework zur Entwicklung von Webanwendungen mit server-seitiger Markup-Generierung gemäß dem MVC Architekturmuster aufgefasst werden?
 
 Durch Servlets und JSPs ist eine Möglichkeit zur Trennung von Controller+Model (Servlets) und View (JSP´s) gegeben.
-Die Kommunikation zwischen Container und den den anwendungsspezifischen Komponenten (Servlets, Filter, JSP´s) erfolgt weitgehend nach dem "Inversion of Control"-Pattern.
+Die Kommunikation zwischen Container und den den anwendungsspezifischen Komponenten (Servlets, Filter, JSP´s) erfolgt weitgehend nach dem "Inversion of Control"-Prinzip.
 
 ## 3 REST Web APIs mit JAX-RS (JRS)
 
@@ -316,10 +316,27 @@ Die Kommunikation zwischen Container und den den anwendungsspezifischen Komponen
 #### Java EE Web Applikationen, Frameworks, HTTP (Vertiefung)
 
 ##### 1. Inwiefern können die Ausdrucksmittel für Java EE Web Applikationen funktional und architektonisch als Framework angesehen werden?
+
+- **funktional**
+    - Java EE stellt eine Reihe abstrakter Komponententypen zur Verfügung, die die Erstellung konkreter Webanwendungen u.a. mit dynamischer Markup-Generierung vereinfachen
+- **architektonisch**
+    - Die Interaktion des Web Containers mit den anwendungsspezifisch implementierten Komponenten erfolgt nach dem *Inversion of Control*-Prinzip.
+
 ##### 2. Was bezeichnet der Begriff der *Idempotenz* im Rahmen der HTTP Spezifikation?
+
+Es besteht kein Unterschied zwischen der mehrmaligen Bearbeitung und der einfachen Bearbeitung eines Requests.
+
 ##### 3. Welche HTTP Methode ist nicht als idempotent spezifiziert?
+
+`POST`
+
 ##### 4. Inwiefern ist die HTTP `DELETE` Methode idempotent?
+
+Das wiederholte löschen eines Objekts hat die gleiche Auswirkung wie das einmalige Löschen eines Objekts -> Das Objekt ist danach gelöscht.
+
 ##### 5. Welche der folgenden Methoden sind keine HTTP Methoden gemäß der gültigen Spezifikation: `POST, READ, UPDATE, DELETE, TRACE`?
+
+`READ` und `UPDATE`
 
 #### HTTP und REST
 
