@@ -493,8 +493,17 @@ Weil sich ein XML Schema Datenmodell in ein Java Datenmodell übersetzen lässt.
 #### SOAP
 
 ##### 1. Wie ist eine SOAP Nachricht aufgebaut?
+
+Eine SOAP Nachricht ist ein XML Dokument.
+Es beinhaltet einen *Envelope* und dieser wiederrum einen *Header* und *Body*.
+
 ##### 2. Weshalb ist es vorteilhaft, als Transportschicht für SOAP das HTTP Protokoll zu verwenden?
+
+Dadurch kann existierende Web-Infrastruktur (z.B. Firewalls) und -Rahmenfunktionen (z.B. Absicherung über HTTPS) genutzt werden.
+
 ##### 3. Weshalb könnte die Verwendung von HTTP als Transportschicht für SOAP als redundanzbehaftet angesehen werden?
+
+HTTP ist ein Anwendungsprotokoll, welches bereits über die Ausdrucksmittel *Header* und *Body* verfügt. SOAP wird im HTTP-Body übertragen und hat ebenfalls einen Header und Body. Dies ist redundant.
 
 #### JAX-WS und JAXB
 
