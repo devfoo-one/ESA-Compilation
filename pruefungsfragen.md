@@ -394,16 +394,38 @@ Hohe Skalierbarkeit und Flexibilität des Servers, da jede Anfrage des Clients v
 #### JAX-RS und Resteasy
 
 ##### 1. Welche beiden Ausdrucksmittel von Java können eingesetzt werden, um eine anwendungsunabhängige Generalisierung des Datenaustauschs zwischen einem Client und einer Webanwendung mit REST Schnittstelle zu implementieren?
+
+Reflection und Annotationen.
+
 ##### 2. Wozu dienen die durch die JAX-RS API bereitgestellten Ausdrucksmittel?
+
+- Zur Abbildung von HTTP-Methoden auf Methoden eines Java-Interfaces/Klasse.
+- Beschreibung des Übertragungsformates komplexer Datentypen als Argumente und Rückgabedaten via HTTP
+
 ##### 3. Welche Funktionalität, die zur Bereitstellung einer Webanwendung mit REST Schnittstelle erforderlich ist, stellt JAX-RS selbst nicht zur Verfügung?
+
+Laufzeitkomponenten, die auf Basis von JAX-RS Annotationen Aufrufe von Java Methoden in HTTP Requests umwandeln und umgekehrt.
+
 ##### 4. Umschreiben Sie, wie client- und server-seitig die folgende um JAX-RS Annotationen ergänzte Methodendeklaration interpretiert werden kann:
 ```java
 @DELETE
 @Path(‘ /dataitems/{dataItemId}‘ )
 public boolean deleteDataItem(@PathParam(‘dataItemId‘) long dataItemId);
 ```
+
+- *Client*
+    - führe bei Aufruf einen HTTP `DELETE` Request auf der URL `.../dataitems/{dataItemId}` aus.
+    - `{dataItemId}` entspricht hierbei dem Methodenargument.
+- *Server*
+    - Wenn ein HTTP `DELETE` Request auf der URL `/dataitems/{dataItemId}` ankommt, dann rufe eine Implementierung der `deleteDataItem` Methode auf und übergebe ihr den Requestparameter `dataItemId` als Attribut vom Typ `long`.
+
 ##### 5. Können Sie die Instanzattribute der Implementierungsklasse eines JAX-RS Web Service Interfaces nutzen, um über mehrere Anfragen hinweg Daten zu speichern? Begründen Sie Ihre Antwort.
+
+Nein, JAX-RS erzeugt pro Aufruf einer Methode des Services eine neue Instanz der Klasse (dies entspricht dem REST Prinzip).
+
 ##### 6. Wie können Sie ohne Verwendung statischer Attribute oder Implementierung eigener Singletons auf Daten zugreifen, die über mehrere Aufrufe eines JAX-RS Web Services hinweg verfügbar sein sollen?
+
+Durch Dependency Injection mittels der `@Context` Annotation kann ein Zugriff auf die datentragenden Komponenten erhalten werden.
 
 ## 4 Web Services mit JAX-WS (JWS)
 
