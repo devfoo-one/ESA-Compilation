@@ -198,27 +198,108 @@ erfüllt. Dazu kann die Komponente bspw. ein durch das Framework definiertes Int
 ####  HTTP (Überblick)
 
 ##### 1. Wie heißen die Nachrichten, die gemäß der HTTP Spezifikation zwischen Client und Server ausgetauscht werden?
+
+Request und Response.
+
 ##### 2. Wozu dient in HTTP eine URI bzw. URL?
+
+Zur Identifikation einer Ressource, auf die mittels eines HTTP Requests zugegriffen werden soll.
+
 ##### 3. Was ist neben der URI ein notwendiger Bestandteil eines HTTP Requests und wozu dient dieser?
+
+Die HTTP Methode. Sie gibt an auf welche Art und Weise auf die, per URL spezifizierte, Ressource zugegriffen werden soll.
+
 ##### 4. Nennen Sie vier HTTP Methoden.
+
+`GET`, `POST`, `PUT`, `DELETE`
+
 ##### 5. Wie soll gemäß HTTP Spezifikation der Erfolg oder Fehlschlag der Bearbeitung eines HTTP Requests durch den Server an den Client übermittelt werden?
+
+Per Status-Code.
+
+- *2xx* - Bearbeitung des Requests erfolgreich
+- *3xx* - "Umleitung" des Requests
+- *4xx* - Fehler im Request
+- *5xx* - serverseitiger Fehler bei der Verarbeitung des Requests
+
 ##### 6. Welche Bestandteile können sowohl in einem HTTP Request, als auch in einem HTTP Response enthalten sein?
+
+Header und Body.
 
 #### Web Applikationen
 
 ##### 1. Was ist eine Java EE Web Applikation?
+
+Eine Anwendung, die in einem *Web Container / Servlet Container* gemäß Java EE Spezifikation ausführbar ist.
+
 ##### 2. Wozu dienen Servlets?
+
+Servlets dienen der *Bearbeitung einer durch den Client an eine Web Applikation übermittelten Anfrage*. Ein `HttpServlet` dient beispielsweise der Verarbeitung von HTTP-Requests.
+
 ##### 3. Welche datentragenden Komponenten sieht die Spezifikation für Java EE Web Applikationen vor?
+
+- `ServletContext` - Daten die aus *allen Requests* zugreifbar sein sollen
+- `HttpSession` - Daten für alle Requests *einer Session*
+- `HttpServletRequest` - Der Request des Client, kann durch datenverarbeitendende Komponenten mit Attributen angereichert werden
+
 ##### 4. Was haben Servlets, Filter und Listener gemeinsam?
+
+Es sind *datenverarbeitende Komponenten*, keine datentragenden.
+
 ##### 5. Welche Methoden – verallgemeinert ausgedrückt – deklariert die `HttpServlet` Klasse und wozu dienen diese Methoden?
+
+Eine Methode für jede HTTP-Methode, welche zur Verarbeitung eines Requests mit der entsprechenden Methode dient.
+Beispielsweise `void doGet(HttpServletRequest req, HttpServletResponse resp)`.
+
 ##### 6. Welche Argumente werden den Methoden eines `HttpServlet` übergeben?
+
+- `HttpServletRequest` - der Request vom Client
+- `HttpServletResponse` - die Response welche an den Client zurückgesendet werden soll
+
 ##### 7. Wie können Filter in Web Applikationen eingesetzt werden?
+
+Zur Vor-/Nachbearbeitung von Requests bzw. Responses vor/nach der Bearbeitung durch eine andere Komponente (z.B. Zugriffskontrolle).
+
 ##### 8. Worin unterscheiden sich - entsprechend der Begrifflichkeiten der Lehrveranstaltung - ‘individuell datentragende’ von ‘kollektiv datentragenden’ Komponenten?
+
+- *individuell datentragend:* - pro Nutzer der Komponente eine Instanz (z.B. `HttpSession`)
+- *kollektiv datentragend:* - alle Nutzer teilen sich eine gemeinsame Instanz (z.B. `ServletContext`)
+
 ##### 9. Wie kommunizieren die Komponenten einer Java EE Web Applikation untereinander?
+
+Die Komponenten kommunizieren nicht direkt miteinander, sondern die Aufrufe werden *durch den Container vermittelt*.
+Zur Datenübergabe werden datentragende Komponenten verwendet wie z.B. die Attribute des `HttpServletRequest` oder der `ServletContext`.
+
 ##### 10. Was ist die `FilterChain`?
+
+Ein durch den Container bereitgestelltes Objekt, über da ein Filter die Weiterbearbeitung eines Requests durch andere Filter, bzw. durch ein Servlet veranlassen kann. Ist das Ende der FilterChain erreicht, wird das eigentliche Ziel des Requests, z.B. ein Servlet, aufgerufen.
+
+```java
+@Override
+public void doFilter(ServletRequest request, ServletResponse response,FilterChain chain) throws IOException, ServletException {
+	System.err.println("TouchpointWebServiceServletFilter: doFilter() invoked\n");
+	// check whether we have a an accept-language header that will be set by the browser but not by the apache http client.
+	// otherwise reject the request
+	String acceptLanguageHeader = ((HttpServletRequest) request).getHeader("accept-language");
+	logger.info("got accept-language header: " + acceptLanguageHeader);
+	// we do quite a brute force string match
+	if (acceptLanguageHeader == null) {
+		chain.doFilter(request, response);
+	} else {
+		// if we do not find the required header, we block access
+		((HttpServletResponse) response).setStatus(HttpServletResponse.SC_FORBIDDEN);
+	}
+}
+```
+
 ##### 11. Wie werden die Komponenten von Java EE Web Applikationen konfiguriert?
+
+Durch Einträge in der `web.xml` oder durch Annotationen an den entsprechenden Klassen.
+
 ##### 12. Inwiefern können die Ausdrucksmittel für Java EE Web Applikationen als ein Framework zur Entwicklung von Webanwendungen mit server-seitiger Markup-Generierung gemäß dem MVC Architekturmuster aufgefasst werden?
 
+Durch Servlets und JSPs ist eine Möglichkeit zur Trennung von Controller+Model (Servlets) und View (JSP´s) gegeben.
+Die Kommunikation zwischen Container und den den anwendungsspezifischen Komponenten (Servlets, Filter, JSP´s) erfolgt weitgehend nach dem "Inversion of Control"-Pattern.
 
 ## 3 REST Web APIs mit JAX-RS (JRS)
 
