@@ -527,15 +527,39 @@ public abstract class AbstractProduct implements Serializable, GenericCRUDEntity
 Durch die Verwendung von `@JsonTypeInfo`. Das Defizit besteht nicht, da keine Abhängigkeiten zur abstrakten Klasse aufgebaut werden, sondern lediglich im übertragenen JSON die konkrete Klasse spezifiziert wird.
 
 ```json
-{"@class":"org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem","id":0,"name":"Schusterjunge","price":0,"productType":"ROLL","expirationAfterStocked":720}
+{
+    "@class": "org.dieschnittstelle.jee.esa.entities.erp.IndividualisedProductItem",
+    "id": 0,
+    "name": "Schusterjunge",
+    "price": 0,
+    "productType": "ROLL",
+    "expirationAfterStocked": 720
+}
 ```
 ##### 4. Beschreiben Sie die beiden Schritte, die durchlaufen werden,um auf Basis JAX-WS/JAXB-annotierter Javaklassen unter Verwendung des JBoss Application Servers einen serverseitigen Web Service und einen diesen Service nutzenden Client bereitzustellen? Wann werden die Schritte ausgeführt (d.h. zur Entwicklungszeit, zum Zeitpunkt des Deployments oder zur Laufzeit)?
 
+- Erstellung einer WSDL und Verfügbarmachung des Services zum Zeitpunkt des *Deployments des Services*
+- Generierung und Kompilierung der Client-Komponenten zur *Entwicklungszeit des Clients* und zur *Laufzeit des Services (wegen des Zugriffs auf die generierte WSDL)*
+
 ##### 5. Wie ist es möglich, aus einer um JAX-WS Annotationen erweiterten Javaklasse, die Teil einer Java EE Web Applikation ist, auf datentragende Komponenten zuzugreifen, z.B. auf den `ServletContext`?
+
+Eine Web Service Implementierung bekommt Zugriff auf eine Instanz von `WebServiceContext`, indem Sie ein Attribut dieses Typs mit der Annotation `@javax.annotation.Ressource` versieht
+Über diese kann dann z.B. auf den `ServletContext` zugegriffen werden.
+
+```java
+@Resource
+private WebServiceContext wscontext;
+ServletContext ctx = (ServletContext) wscontext.getMessageContext()
+                            .get(MessageContext.SERVLET_CONTEXT);
+```
 
 ##### 6. Können in Javaklassen, die mittels JAX-WS als Web Services verfügbar gemacht werden, Instanzattribute verwendet werden, um über Daten über mehrere Aufrufe eines Clients hinweg zu speichern? Begründen Sie Ihre Antwort.
 
+***LAUT SCRIPT 5.3.2 besteht über den `ServletContext` und darüber auf die `HttpSession`. Laut Antwortenliste jedoch "Nein, denn Web Services sind zustandslos"***
+
 ##### 7. Welchen offensichtlichen Unterschied weisen die auf Basis einer WSDL Beschreibung automatisch generierten Klassen des von einem Service verwendeten Datenmodells im Ggs. zu den originalen Klassen auf?
+
+Sie haben nur einen Default Konstruktor. Alle Attribute müssen per getter gesetzt werden.
 
 
 ## 5 Web Services Vertiefung (WSV)
