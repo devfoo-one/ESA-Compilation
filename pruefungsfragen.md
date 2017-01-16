@@ -98,12 +98,52 @@ Sie gelten ebenfalls. Der Zugriffsberechtigung kann jedoch via `setAccessible()`
 #### Annotationen
 
 ##### 1. Wozu können Annotationen, allgemein ausgedrückt, verwendet werden?
+
+Zur Angabe von anwendungsspezifischen Zusatzinformationen bezüglich einer Klasse, eines Interfaces oder ihrer Elemente.
+
 ##### 2. Wie werden Annotationen deklariert und wie werden sie verwendet?
+
+```java
+public @interface MyAnnotation {
+    public Sting param1();
+    public int param2();
+}
+```
+
+Die Verwendung der Annotation erfolgt mittels vorangestelltem `@`, also `@MyAnnotation(param1 = "foo", param2=42)`.
+
 ##### 3. Welche Auswirkung hat die Nichtverfügbarkeit eines Annotationstyps auf die Kompilierbarkeit bzw. die Laufzeit-Ladbarkeit einer Klasse?
+
+Nichtverfügbarkeit verhindert das Kompilieren er Klasse. Eine kompilierte Klasse kann jedoch geladen werden, wenn die Annotation nicht zur Laufzeit zur Verfügung steht. Sie werden in dem Fall ignoriert.
+
 ##### 4. Sind Annotationen grundsätzlich zur Laufzeit verfügbar?
+
+Nein, nur wenn sie als Geltungsbereich *Runtime-Annotationen* via `@Retention` angegeben haben und zur Laufzeit verfügbar sind.
+
+```java
+@Retention(RetentionPolicy.RUNTIME)
+@Target(ElementType.FIELD)
+public @interface DisplayAs {
+    String getValue();
+}
+```
+
 ##### 5. Welche Elemente einer Klasse können mit Annotationen versehen werden?
+
+- die Klasse selbst
+- Attribute
+- Methoden incl. der Konstruktoren
+- Methodenargumente
+
 ##### 6. Wie sind Annotationen zur Laufzeit zugänglich
+
+Durch Aufruf von `getAnnotations()` bzw. `getDeclaredAnnotations()` auf dem annotierten Element.
+Beispielsweise liefert `java.lang.Class.getAnnotations()` den Rückgabewert `lava.lang.Annotation[]`.
+Das Vorhandensein einer bestimmten Annotation kann via `isAnnotationPresent(Class annotationType)` geprüft werden.
+
 ##### 7. Welchen Nachteil hat die Verwendung von Annotationen anstelle von Interfaces im Hinblick auf das Laufzeitverhalten einer Anwendung?
+
+Es kann nicht geprüft werden ob alle benötigten Annotationen verwendet wurden. Ebenfalls können die Signaturen von Methoden zur Compilezeit nicht überprüft werden.
 
 #### Architektur: Proxies, Frameworks, Komponenten
 
