@@ -143,16 +143,41 @@ Das Vorhandensein einer bestimmten Annotation kann via `isAnnotationPresent(Clas
 
 ##### 7. Welchen Nachteil hat die Verwendung von Annotationen anstelle von Interfaces im Hinblick auf das Laufzeitverhalten einer Anwendung?
 
-Es kann nicht geprüft werden ob alle benötigten Annotationen verwendet wurden. Ebenfalls können die Signaturen von Methoden zur Compilezeit nicht überprüft werden.
+Es kann nicht geprüft werden ob alle benötigten Annotationen verwendet wurden. Ebenfalls können die Signaturen von Methoden zur Compilezeit nicht überprüft werden. Das bedeutet das Framework muss ggf. damit umgehen, dass eine Methode nicht bereitgestellt wird.
 
 #### Architektur: Proxies, Frameworks, Komponenten
 
 ##### 1. Was ist der wesentliche Unterschied zwischen Proxies und Adaptern als ‘Stellvertretern’ eines Objekts?
+
+Ein Proxy implementiert das gleiche Interface wie sein "Ziel" und verhält sich exakt wie die Zielklasse. Ein Adapter tut dies nicht.
+
 ##### 2. Wie kann ein Framework funktional definiert werden?
+
+Ein Framework ist eine *abstrakte und partielle Softwareanwendung* welche zur *Erstellung einer Menge konkreter Softwarekomponenten* eines *bestimmten Typs* dient - z.B. einer Android App mit graphischer Nutzerschnittstelle.
+
 ##### 3. Nennen Sie 5 Ausdrucksmittel, mit denen Java die Erstellung von Frameworks unterstützt
+
+- Reflection
+- Annotationen
+- dynamisches Laden von Klassen
+- Abstrakte Klassen
+- Interfaces
+
 ##### 4. Was sind wesentliche Vor- und Nachteile von Frameworks
+
+- Vorteile
+    - Entlastung des Entwicklers, da generische Anwendungsfunktionalität durch das Framework erbracht wird (bspw. Persistenz)
+- Nachteile
+    - Einschränkung des Handlungsspielraumes, da ein Framework nur für einen bestimmten Anwendungsfall konzipiert ist.
+
 ##### 5. Wie lässt sich unter Bezug auf den Begriff des *Frameworks* der Begriff der *Komponente* charakterisieren?
 
+Eine Komponente ist ein *anwendungsspezifisches Implementierungsartefakt* (z.B. eine Klasse), welche
+
+- ihre *anwendungsspezifische Funktion*, sowie
+- eine *durch das Framework definierte generische Funktion*
+
+erfüllt. Dazu kann die Komponente bspw. ein durch das Framework definiertes Interface implementieren.
 
 ## 2. HTTP und Java EE Web Applikationen (SER)
 
