@@ -817,16 +817,66 @@ Es ist sehr aufwändig und fehleranfällig.
 #### Java Persistence API
 
 ##### 1. Welche Arten von Ausdrucksmittel stellt Ihnen die JPA zur Verfügung?
+
+- *Annotationen* zur Abbildung von Java Datenmodellen auf Datenbankschemata
+    - (durch Anreicherung der Aussagen des Datenmodells mittels Metadaten)
+- Eine *Abfragesprache* (JPA Query Language) zur Formulierung von lesenden und schreibenden Zugriffen auf Datenbankinstanzen unter Verwendung des Java Datenmodells.
+- APIs zur Ausführung von lesendem und schreibenden Zugriff auf Datenbestände
+
 ##### 2. Was ist Hibernate in Bezug auf die JPA?
+
+Eine Implementierung der JPA Spezifikation.
+
 ##### 3. Was sind Entities im Sinne der JPA?
+
+- Java Klassen, die mittels *Annotationen* um Aussagen zur *Realisierung des ORM* erweitert werden
+- Entity-Instanzen repräsentieren in Datenbanken *persistierte bzw. zu persistierende* Objekte
+
 ##### 4. Warum können kompilierte JPA-Entity-Klassen außerhalb eines Java EE Anwendungsservers als gewöhnliche Java-Klassen verwendet werden?
+
+Weil JPA Annotationen bei Nichtverfügbarkeit der Annotationsklasen zur Laufzeit einfach ignoriert werden.
+(Nichtverfügbarkeit von Annotationen verhindert lediglich das Kompilieren einer Klasse.)
+
 ##### 5. Was leistet ein `SequenceGenerator` in Bezug auf die Instanzen einer Entity Klasse?
+
+Er erzeugt individuelle Wertfolgen für die Identifikation von Instanzen.
+
 ##### 6. Worüber müssen Entity-Klassen (wie andere Klassen, von denen in Java EE dynamisch Instanzen erzeugt werden) verfügen?
+
+Über einen Default-Konstruktor.
+
 ##### 7. Welchen Membern einer Entity-Klasse kann die JPA `@Id` Annotation zur Markierung eines einfachen Primärschlüssels zugewiesen werden?
+
+- dem Instanzattribut welches als Primärschlüssel fungieren soll, oder
+- einem Getter
+
 ##### 8. Mittels welcher 4 JPA Annotationen können Sie die Kardinalität einer Assoziation zum Ausdruck bringen?
+
+- `OneToOne`
+- `OneToMany`
+- `ManyToOne`
+- `ManyToMany`
+
 ##### 9. Wozu dient die `@Transient` Annotation der JPA?
+
+Eine `@Transient` Annotation sorgt dafür, dass das entsprechende Attribut nicht auf der Ebene des Datenbankschemas berücksichtigt werden soll.
+
+(Beispielsweise temporäre Werte wie Session IDs...)
+
 ##### 10. Welche drei Alternativen bietet Ihnen die JPA zur Behandlung von Polymorphie an?
+
+
+- Verwendung einer einzigen Tabelle (`SINGLE-TABLE`)
+    - ![](img/single_table.jpg)
+- Verwendung einer Tabelle pro konkreter Entity-Klasse (`TABLE-PER-CLASS`)
+    - ![](img/table_per_class.jpg)
+- Verwendung einer Tabelle pro abstrakter oder konkreter Klasse (`JOINED`)
+    - ![](img/joined.jpg)
+
 ##### 11. Nach welchem Kriterium können Sie u.a. entscheiden, welche Alternative für polymorphe Datentypen verwendet werden soll?
+
+Je nachdem ob die Instanzen der Unterklassen oder die Instanzen der Oberklassen häufiger angesprochen werden.
+(Häufiges Ansprechen von Oberklasse A = `SINGLE-TABLE`)
 
 #### JPA Laufzeit und Inbetriebnahme
 
