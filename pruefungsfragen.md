@@ -881,17 +881,57 @@ Je nachdem ob die Instanzen der Unterklassen oder die Instanzen der Oberklassen 
 #### JPA Laufzeit und Inbetriebnahme
 
 ##### 1. Was ist im Rahmen der JPA die Aufgabe eines `EntityManager`?
+
+Der `EntityManager` führt CRUD Operationen auf von ihm verwalteten Objekten als Transaktionen auf der Datenquelle aus.
+
 ##### 2. Wann werden die auf einem `EntityManager` aufgerufenen CRUD Operationen in Zugriffe auf die verwendete Datenquelle umgesetzt?
+
+Bei Abschluss der Transaktion, aus der heraus die CRUD Operation aufgerufen wurde.
+
 ##### 3. Greifen mehrere parallel ausgeführte Transaktionen auf denselben Zustand eines `PersistenceContext` zu?
+
+Nein, jeder Transaktionskontext verwendet seinen eigenen `PersistencContext`.
+
 ##### 4. Was ist eine ‘detached’ Entity?
+
+Eine Entity, welche nicht unter der Verwaltung es `EntityManagers` steht.
+
 ##### 5. Welche der vier CRUD Operationen wird durch die `merge()` Methode eines EntityManager bereit gestellt?
+
+Update.
+
 ##### 6. Was ist Kaskadierung in Bezug auf die Ausführung einer CRUD Operation?
+
+Kaskadierung in Bezug auf CRUD Operationen bezeichnet die *Ausführung der Operation für die ggf. mit einem Objekt assoziierten Objekte*.
+
 ##### 7. Was ist mit Lazy Loading im Rahmen der JPA gemeint?
+
+Bei Lazy Loading werden assoziierte Entities erst geladen wenn der Zugriff auf sie erfolgt und nicht bereits bei der Erzeugung der Instanz.
+
 ##### 8. Wann ist Lazy Loading möglich?
+
+Wenn die Entity-Instanz *nicht detached* ist, sich also unter der Kontrolle eines `EntityManagers` befindet.
+
 ##### 9. Was ist der offensichtliche Unterschied der JPA QueryLanguage im Vergleich zu SQL?
+
+Anstelle von Tabellennamen und Spaltennamen werden Klassennamen und Attributnamen verwendet.
+
 ##### 10. Was ist eine `PersistenceUnit` im Rahmen der JPA?
+
+Eine deklarierte Menge an Klassen, welche durch einen `EntityManager` verwaltet werden sollen.
+
 ##### 11. Was ist eine Datenquelle im Sinne der JPA?
+
+Eine Abstraktion über der Datenhaltungsschicht einer Anwendung bzw. eine Menge von Parametern, die für den Aufbau von Verbindungen für den Zugriff auf die Datenhaltungsschicht verwendet werden müssen.
+
 ##### 12. Was ist die Aufgabe der `persistence.xml` Konfigurationsdatei im Ggs. zu den `-ds.xml` Konfigurationen?
+
+- `-ds.xml` deklariert Datenquellen
+- `persistence.xml` deklariert PersistenceUnits und gibt an, welche Datenquellen dafür verwendet werden sollen.
+
+Alternativ:
+
+`persistence.xml` deklariert diejenige *Menge von Klassen*, die als *Persistence Unit* durch einen `EntityManager` verwaltet werden sollen. In `-ds.xml` werden die Datenquellen deklariert.
 
 ## 8 Architekturmuster für EJB und JPA (PAT)
 
