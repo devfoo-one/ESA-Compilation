@@ -783,15 +783,36 @@ Der Aufruf einer, mit `javax.ejb.LockType.WRITE` annotierten, Methode aus einem 
 #### Datenzugriff, Persistenz und ORM
 
 ##### 1. Worin bestehen in einer mehrschichtigen Softwarearchitektur die Aufgaben der Persistenzschicht?
+
+- Implementierung des *Zugriffs auf die zur Datenhaltung verwendeten Anwendungen*
+- und ggf. die *Abbildung des von der Geschäftslogik verwendeten Datenmodells* auf das Datenmodell der Datenhaltungsschicht
+
 ##### 2. Was ist Object Relational Mapping zur Entwicklungszeit bzw. Laufzeit?
+
+- *Entwicklungszeit*
+    - Abbildung des objektorientierten Datenmodells auf ein relationales Datenbankschema oder umgekehrt
+- *Laufzeit*
+    - Erstellung von Datensätzen in der Datenban auf Grundlage der Instanzen eines OO Datenmodells
+    - Instanziierung von Objekten auf Basis ausgelesener Datensätze
+
 ##### 3. Was ist der Nachteil bei einer rein manuellen Umsetzung von ORM?
+
+Es ist sehr aufwändig und fehleranfällig.
+
 ##### 4. Was sind die Entsprechungen der folgenden objektorientierten Konzepte auf Ebene eines relationalen Datenbankschemas?
-- Klassen
-- Instanzattribute einfacher Datentypen mit 0..1 Kardinalität
-- Instanzattribute komplexer Datentypen mit 0..1 Kardinalität
-- Instanzattribute mit 0..* Kardinalität
+- *Klassen* = Tabellen
+- *Instanzattribute einfacher Datentypen mit 0..1 Kardinalität* = Tabellenspalten
+- *Instanzattribute komplexer Datentypen mit 0..1 Kardinalität* = Fremdschlüssel auf die betreffenden Tabellen
+- *Instanzattribute mit 0..* Kardinalität* = Relationstabellen mit Fremdschlüsseln
 
 ##### 5. Nennen Sie 4 Fragen, die Sie klären müssen, um auf Basis eines Java Datenmodells ein entsprechendes Datenbankschema zu erstellen.
+
+- Was ist der *eindeutige Identifikator* für Instanzen einer Klasse?
+- Was ist die Kardinalität der Assoziation zu Instanzen komplexer Datentypen?
+- Handelt es sich bei einer Beziehung zu Instanzen anderer Klassen um eine Aggregations- oder Kompositionsbeziehung?
+    - Ist die Existenz der aufeinander bezogenen Instanzen *aneinander gebunden* (Komposition)?
+    - oder existieren die Instanzen *unabhängig voneinander* (Aggregation)?
+- Wie sollen Instanzen polymorpher Klassen repräsentiert werden?
 
 #### Java Persistence API
 
