@@ -698,15 +698,64 @@ Alle annotierbaren Eigenschaften von EJB´s können alternativ in der Konfigurat
 #### Weitere Konzepte und Ausdrucksmittel für EJBs
 
 ##### 1. Was wird (in Bezug auf die Verwendung von Anwendungskomponenten in einer Framework-Architektur) als Lebenszyklus bezeichnet und was sind Lebenszyklusmethoden?
+
+- Der *Lebenszyklus* ist eine *Abfolge von Zuständen*, die eine *Komponente* zur *Laufzeit* durchläuft.
+- *Lebenszyklusmethoden* werden durch das Framework aufgerufen, wenn eine *Komponente* durch das Framework *in einen neuen Zustand* gebracht wird / gebracht worden ist.
+    - z.B. "Jetzt wurde eine Instanz der Komponente erstellt!" - `@PostConstruct`
+
 ##### 2. Nennen Sie drei Beispiele für Annotationen, mit denen Sie Lebenszyklusmethoden in EJBs deklarieren können.
-##### 3. Was sind diewesentlichen Unterschiede zwischen Zugriffen auf EJBs via `@Local` vs. `@Remote` Interfaces im Hinblick auf Argumente und Rückgabewerte?
+
+- `@PostConstruct`
+- `@PreDestroy`
+- `@PrePassivate`
+- `@PostActivate`
+
+##### 3. Was sind die wesentlichen Unterschiede zwischen Zugriffen auf EJBs via `@Local` vs. `@Remote` Interfaces im Hinblick auf Argumente und Rückgabewerte?
+
+- Bei `@Local` Interfaces werden die Argumente und Rückgabewerte *by Reference* übergeben.
+- Bei `@Remote` Interfaces werden die Argumente und Rückgabewerte *by Value* übergeben.
+    - sie werden serialisiert (auch wenn der Zugriff lokal erfolgt)
+
 ##### 4. Kann aus Sicht eines EJB Clients die Ausführung einer EJB Methode bei Aufruf über ein `@Remote` Interface Seiteneffekte bezüglich der übergebenen Argumentenwerte haben? Begründen Sie Ihre Antwort.
+
+Nein, da keine Referenz als Argument übergeben wird, sondern eine *by Value* Übergabe eines serialisierten Objekts erfolgt.
+
 ##### 5. Welche Ausdrucksmittel stellt Java für die Erstellung und Verwendung von Stubs für EJBs bereit?
+
+Dynamische Proxies (`java.lang.reflect.Proxy`) und InvocationHandler (`java.lang.reflect.InvocationHandler`).
+
+(Ein Stub ist ein Stellvertreter der Komponente der API auf einem entfernten Client. Es ist ein Proxy, welcher die Anfragen weiterleitet.)
+
 ##### 6. Wie kann ein EJB Stub die aufgerufene EJB identifizieren?
+
+Anhand ihrer JNDI-URI.
+
 ##### 7. Was ist Dependency Injection und welche Vorteile hat dieses Verfahren?
+
+Dependency Injection ist die Bereitstellung von, in einer Komponente benötigten, Komponenten "von außen".
+Ich sage dem Framework was ich benötige (z.B. durch eine Annotation an einem Attribut) und das Framework gibt mir eine Instanz davon.
+Vorteil ist, dass die Komponente die benötigten Komponenten nicht selbst instanziieren muss, und somit die Implementierung getauscht werden kann (weniger Koppelung).
+
 ##### 8. Wer ist bei Verwendung von EJBs zur Laufzeit für die Durchführung von Dependency Injection zuständig?
+
+Das Framework, also der EJB Container.
+
 ##### 9. Was muss eine EJB tun, um Dependency Injection zu nutzen?
+
+Ein Attribut mit einem EJB Interface-Typ deklarieren und mit der `@EJB` Annotation versehen.
+
+```java
+/*
+beanName nur notwendig, wenn mehrere Implementierungen
+des OrderSystemLocal-Interfaces existieren
+ */
+@EJB(beanName="orderSystem")
+private OrderSystemLocal orderSystem;
+```
+
 ##### 10. Welche Konsequenzen hat zur Laufzeit die Verwendung des Werts `javax.ejb.LockType.WRITE` zur Beschreibung Concurrency-Verhaltens einer Methode einer Singleton Bean?
+
+Der Aufruf einer, mit `javax.ejb.LockType.WRITE` annotierten, Methode aus einem Thread führt dazu, dass das Singleton sich für alle anderen Threads sperrt, bis die Methode abgeschlossen wurde.
 
 ## 7 Java Persistence Architecture (JPA)
 
