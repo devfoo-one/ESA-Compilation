@@ -569,7 +569,7 @@ ServletContext ctx = (ServletContext) wscontext.getMessageContext()
 
 ##### 7. Welchen offensichtlichen Unterschied weisen die auf Basis einer WSDL Beschreibung automatisch generierten Klassen des von einem Service verwendeten Datenmodells im Ggs. zu den originalen Klassen auf?
 
-Sie haben nur einen Default Konstruktor. Alle Attribute müssen per getter gesetzt werden.
+Sie haben nur einen Default Konstruktor. Alle Attribute müssen per *Setter* gesetzt werden.
 
 
 ## 5 Web Services Vertiefung (WSV)
