@@ -633,6 +633,13 @@ Reflection und Annotationen.
 - EJBs können entweder lokal innerhalb einer Laufzeitumgebung über `@Local` Interfaces aufgerufen werden, oder auf mehrere Laufzeitumgebungen verteilt werden und über `@Remote` Interfaces miteinander kommunizieren.
 - Der Zugriff auf `@Remote` EJBs ist auf Java Clients eingeschränkt.
 - Abhängigkeiten von EJBs zu anderen EJBs werden durch den Container mittels Dependency Injection und Verwendung der `@EJB` Annotation zur Laufzeit bereit gestellt.
+- EJB Interfaces kennen den Typ der EJB nicht
+    - `@Stateless`, `@Stateful` und `@Singleton` kommt an die Implementierungen (Klassen)
+    - `@Local` und `@Remote` an die Interfaces
+- EJB´s und ihre "Verwaltungsaktivitäten"
+    - `@Stateless` - Pooling
+    - `@Stateful` - Passivierung/Reaktivierung
+    - `@Singleton` - Locking
 
 ### Prüfungsfragen
 
