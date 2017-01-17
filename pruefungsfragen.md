@@ -306,6 +306,8 @@ Die Kommunikation zwischen Container und den den anwendungsspezifischen Komponen
 ### Kurzzusammenfassung
 - REST ist ein Architekturstil, der Grundprinzipien für die Gestaltung und Implementierung von Web APIs definiert.
 - REST ermöglicht eine größtmögliche Nutzung der Ausdrucksmittel des HTTP Protokolls zur Identifikation der Operationen einer Web API.
+- *JAX-RS = Java API for RESTful Web Services*
+    - > um die Spezifikation einer Programmierschnittstelle (API) der Programmiersprache Java, die die Verwendung des Software-Architekturstils Representational State Transfer (REST) im Rahmen von Webservices ermöglicht und vereinheitlicht.
 - JAX-RS stellt eine Menge von Annotationen zur Verfügung, um für Java Klassen oder Interfaces eine Web API gemäß den Prinzipien von REST zu deklarieren.
 - Resteasy ist eine Implementierung von JAX-RS, die die server-seitige Bereitstellung und Ausführung und die client-seitige Verwendung von Web APIs mittels JAX-RS annotierter Interfaces ermöglicht.
 - REST ist agnostisch gegenüber dem Repräsentationsformat, in dem Argumente und Rückgabewerte einer Web API übermittelt werden.
@@ -433,6 +435,7 @@ Durch Dependency Injection mittels der `@Context` Annotation kann ein Zugriff au
 - Web Services können nicht nur eine ‘WebAPI’ für den Laufzeitzugriff auf server-seitige Operationen bereit stellen, sondern können hinsichtlich Funktionsumfang, verwendeten Datentypen und Zugriffsform auch maschinenlesbar und implementierungsunabhängig beschrieben werden.
 - Die WSDL ist eine Sprache, die eine solche Beschreibung von Web Services ermöglicht.
 - Für den Aufruf von mittels WSDL beschriebenen WebServices wird meistens SOAP via HTTP verwendet.
+- *JAX-WS = Java API for XML Web Services*
 - JAX-WS stellt eine Menge von Annotationen bereit, mit der Java Klassen oder Interfaces als Web Services gemäß der WSDL beschrieben werden können.
 - JAXB wird dabei für die Beschreibung des Datenmodells für Argumente und Rückgabewerte verwendet.
 - Apache CXF ist eine Implementierung von Compilezeit- und Laufzeitkomponenten für JAX-WS und JAXB und ermöglicht
