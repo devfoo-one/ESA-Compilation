@@ -639,9 +639,30 @@ Reflection und Annotationen.
 #### EJBs als server-seitige Komponenten
 
 ##### 1. Was ist die Motivation für die Verwendung von komponentenbasierten server-seitigen Architekturen wie EJBs? Erläutern Sie dies mit den Anforderungen an Anwendungen, die in einem Application Server zur Ausführung gebracht werden.
+
+Anwendungsserver müssen eine Vielzahl von (menschlichen oder technischen) Nutzern gleichzeitig performant und zuverlässig bedienen. Das bedeutet dass die verfügbaren Speicher- und CPU-Ressourcen zur Bedienung möglichst vieler Nutzer verwendet werden sollen. Die Ressourcen sollen so verwendet werden, dass sie die Nutzeranfragen möglichst unabhängig voneinander verarbeitet werden sollen. Dies lässt sich durch EJB´s realisieren.
+
 ##### 2. Welche Vorteile hat ein Anwendungsentwickler durch die Verwendung von EJBs?
+
+Der Anwendungsentwickler kann sich auf die Implementierung *anwendungsspezifischer Geschäftslogik* konzentrieren, und weitestgehend die Frage ausblenden für wie viele Nutzer die Implementierung zur Verfügung gestellt werden soll.
+
 ##### 3. Was muss ein Anwendungsentwickler hinsichtlich einer Verwendung einer anwendungsspezifischen Klasse als EJB beachten?
+
+- Soll die Klasse ein *Datenträger*, *Datenverarbeiter* oder beides sein?
+- Wie lange soll die Klasse den Nutzern zur Verfügung stehen? Für eine *einzelne Anfrage* oder eine *Folge von Abfragen*?
+- Soll die Klasse nur einem *einzelnen Benutzer* oder *allen Benutzern* zur Verfügung stehen?
+
 ##### 4. Welche drei Typen server-seitiger Komponenten lassen sich unterscheiden? Geben Sie Anwendungsbeispiele und nennen Sie die jeweiligen EJB Typen, die für die Umsetzung dieser Komponenten geeignet sind?
+
+- *Individuell datentragende* Komponenten
+    - z.B. Warenkorb
+    - `@Stateful` EJBs
+- *Kollektiv datentragende* Komponenten
+    - z.B. Lagerbestand
+    - `@Singleton` EJBs
+- *Rein datenverarbeitende* Komponenten
+    - z.B. Bestellannahme
+    - `@Stateless` EJBs
 
 #### Typen von EJBs
 
