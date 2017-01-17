@@ -579,11 +579,35 @@ Sie haben nur einen Default Konstruktor. Alle Attribute müssen per getter geset
 #### Implementierung von Web Service Frameworks
 
 ##### 1. Wofür können Sie die `newProxyInstance()` Methode der Klasse `java.lang.reflect.Proxy` verwenden?
+
+Sie erzeugt dynamisch (d.h. zur Laufzeit) eine Instanz einer von `Proxy` abgeleiteten Klasse, die eine Menge an *Interfaces* implementiert.
+
 ##### 2. Was braucht eine Instanz von `java.lang.reflect.Proxy`, um die auf ihr aufgerufenen Methoden bearbeiten zu können?
+
+Einen `InvocationHandler`, an dessen `invoke`-Methode die Methodenaufrufe bezüglich dieser Instanz weitergeleitet werden.
+
 ##### 3. Was tut eine Implementierung von `java.lang.reflect.InvocationHandler`?
+
+> Processes a method invocation on a proxy instance and returns the result. This method will be invoked on an invocation handler when a method is invoked on a proxy instance that it is associated with.
+
+Sie verarbeitet die Methodenaufrufe an einem `Proxy`-Objekt.
+
 ##### 4. Welche Ausdrucksmittel von Java sind besonders hilfreich, um eine Implementierung von `java.lang.reflect.InvocationHandler` zu erstellen?
+
+Reflection und Annotationen.
+
 ##### 5. Wozu kann ein Invocation Handler Reflection und Annotations einsetzen?
+
+- *Reflection* - Zur Ermittlung welche Methode auf einem Proxy aufgerufen wurde
+- *Annotationen* - Zur Ermittlung wie diese Methode umgesetzt werden soll.
+
 ##### 6. Welche Schritte muss in einem JAX-RS Client-Framework ein `InvocationHandler` ausführen, um den Aufruf einer Methode eines JAX-RS annotierten Interfaces zu bearbeiten?
+
+- Ermitteln der *Annotationen* der aufgerufenen Methode
+- Anhand der Annotationen die *Methode und URL* eines HttpRequests ermitteln
+- ggf. Umwandlung der Argumente (Java-Objekte) ind das gewünschte Repräsentationsformat (z.B. JSON)
+- Senden des *Requests an den Server*
+- Auslesen des *Response-Body* und ggf. Wandlung der Response-Daten in eine Instanz des Rückgabedatentyps
 
 #### Architekturansätze für Web Services
 (individueller Vertiefungsstoff, bis auf weiteres nicht prüfungsrelevant)
