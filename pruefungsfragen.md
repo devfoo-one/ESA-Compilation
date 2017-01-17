@@ -187,8 +187,15 @@ erfüllt. Dazu kann die Komponente bspw. ein durch das Framework definiertes Int
     - eignen sich zur Bereitstellung von Anwendungsfunktionalität
         - über ein GUI auf Basis von server-seitig generiertem HTML Markup (ggf. +CSS, +JavaScript)
         - über eine Web API für ’technische Nutzer’
-    - stellen datenverarbeitende Komponenten mit unterschiedlichem Aufgabenbereich zur Verfügung
-    - verwenden datentragende Komponenten der Laufzeitumgebung / des Containers mit unterschiedlichem Geltungsbereich / Lebensdauer
+    - stellen **datenverarbeitende Komponenten** mit unterschiedlichem Aufgabenbereich zur Verfügung
+        - `HttpServlet` - *Hauptverarbeitung* von Clientanfragen
+        - `Filter` - *"Vorverarbeitung"* von Clientanfragen
+        - `JSPs` - *Erwiderungsgenerierung* bezüglich Clientanfragen
+        - `Listener` - Reaktionen auf *Lebenszyklusereignisse und Änderungen des Datenbestandes* datentragender Komponenten
+    - verwenden **datentragende Komponenten** der Laufzeitumgebung / des Containers mit unterschiedlichem Geltungsbereich / Lebensdauer
+        - `ServletContext` - *alle Clients*
+        - `HttpSession` - eine *Clientsession*
+        - `HttpServletRequest` - eine *Clientanfrage*
 -  Wichtigste Komponenten einer Java EE Web Applikation sind Servlets
     - ermöglichen Bearbeitung von HTTP Requests bezüglich einer Menge von URLs
     - erfordern dafür Implementierung einer Bearbeitungsmethode pro verwendeter HTTP Request Methode
