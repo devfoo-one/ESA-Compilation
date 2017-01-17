@@ -667,11 +667,33 @@ Der Anwendungsentwickler kann sich auf die Implementierung *anwendungsspezifisch
 #### Typen von EJBs
 
 ##### 1. Wie viele Nutzer können eine `Stateless` EJB gleichzeitig nutzen?
+
+Nur ein Nutzer.
+
 ##### 2. Was ist Pooling und was sind seine Vorteile?
+
+Pooling dient der Wiederverwertung von nicht mehr genutzten `Stateless` EJB Instanzen.
+Vorteil ist, dass einmal erzeugte Instanzen nicht neu erzeugt werden müssen (geringere Zugriffszeit und weniger Speicherverbrauch als permanente Neuerzeugung bei Zugriff).
+
 ##### 3. Für welchen Typ von EJBs wird Pooling angewendet? Weshalb wird es für die anderen Typen nicht eingesetzt?
+
+**Für `Stateless` EJBs**.
+Für `Stateful` EJB´s ist es nicht sinnvoll, da diese Daten für einen bestimmten Nutzer beinhalten müssen und immer nur von einem Nutzer verwendet werden.
+Von `Singleton` EJB´s existiert eh nur eine Instanz.
+
 ##### 4. Was ist Passivierung?
+
+Das Entfernen einer aktuell nicht verwendeten `Stateful` EJB aus dem Arbeitsspeicher und ihre temporäre Persistierung in einem externen Speicher bis zur erneuten Verwendung.
+
 ##### 5. Weshalb erfordern `Singleton` EJBs spezielle Maßnahmen im Hinblick auf Concurrency und die anderen EJB Typen keine solche Maßnahmen?
+
+`Singleton` EJB´s sind aus mehreren Threads heraus verwendbar und können somit durch gleichzeitigen Zugriff Inkonsistenzen aufweisen.
+`Stateless` und `Stateful` EJB´s sind immer nur aus einem Thread verwendbar.
+
 ##### 6. Welche Rolle spielen Annotationen im Hinblick auf die Verwendung von EJBs und welche Rolle kommt der `ejb-jar.xml` Konfigurationsdatei zu?
+
+Alle Merkmale von EJB´s lassen sich mittels Annotationen ausdrücken.
+Alle annotierbaren Eigenschaften von EJB´s können alternativ in der Konfigurationsdatei `ejb-jar.xml` überschrieben, und somit zur Laufzeit modifiziert werden.
 
 #### Weitere Konzepte und Ausdrucksmittel für EJBs
 
