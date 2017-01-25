@@ -105,7 +105,7 @@ Zur Angabe von anwendungsspezifischen Zusatzinformationen bezüglich einer Klass
 
 ```java
 public @interface MyAnnotation {
-    public Sting param1();
+    public String param1();
     public int param2();
 }
 ```
@@ -279,7 +279,7 @@ Zur Datenübergabe werden datentragende Komponenten verwendet wie z.B. die Attri
 
 ##### 10. Was ist die `FilterChain`?
 
-Ein durch den Container bereitgestelltes Objekt, über da ein Filter die Weiterbearbeitung eines Requests durch andere Filter, bzw. durch ein Servlet veranlassen kann. Ist das Ende der FilterChain erreicht, wird das eigentliche Ziel des Requests, z.B. ein Servlet, aufgerufen.
+Ein durch den Container bereitgestelltes Objekt, über das ein Filter die Weiterbearbeitung eines Requests durch andere Filter, bzw. durch ein Servlet veranlassen kann. Ist das Ende der FilterChain erreicht, wird das eigentliche Ziel des Requests, z.B. ein Servlet, aufgerufen.
 
 ```java
 @Override
@@ -475,7 +475,7 @@ zu beschreiben.
 
 ##### 3. Was kann bei Verwendung von JAX-RS die Aufgabe einer WSDL übernehmen? Welche Einschränkung besteht hierbei?
 
-Ein, mit JAX-RS Annotationen annotiertes Java-Interface.
+Ein, mit JAX-RS Annotationen annotiertes, Java-Interface.
 Dieses kann jedoch auch nur von Java-Clients verwendet werden.
 
 ##### 4. Was lässt sich mittels XML Schema beschreiben? Welche Ausdrucksmittel stehen hierfür im Einzelnen zur Verfügung?
@@ -792,7 +792,7 @@ Der Aufruf einer, mit `javax.ejb.LockType.WRITE` annotierten, Methode aus einem 
 - *Entwicklungszeit*
     - Abbildung des objektorientierten Datenmodells auf ein relationales Datenbankschema oder umgekehrt
 - *Laufzeit*
-    - Erstellung von Datensätzen in der Datenban auf Grundlage der Instanzen eines OO Datenmodells
+    - Erstellung von Datensätzen in der Datenbank auf Grundlage der Instanzen eines OO Datenmodells
     - Instanziierung von Objekten auf Basis ausgelesener Datensätze
 
 ##### 3. Was ist der Nachteil bei einer rein manuellen Umsetzung von ORM?
@@ -890,7 +890,7 @@ Bei Abschluss der Transaktion, aus der heraus die CRUD Operation aufgerufen wurd
 
 ##### 3. Greifen mehrere parallel ausgeführte Transaktionen auf denselben Zustand eines `PersistenceContext` zu?
 
-Nein, jeder Transaktionskontext verwendet seinen eigenen `PersistencContext`.
+Nein, jeder Transaktionskontext verwendet seinen eigenen `PersistenceContext`.
 
 ##### 4. Was ist eine ‘detached’ Entity?
 
@@ -981,7 +981,7 @@ zum *Model*
 
 ##### 1. Was ist die Aufgabe eines DAO?
 
-Abstraktion über lesenden und schreibenden Datenzugriffen für die Geschäftslogigschickt einer Anwendung. *(CustomerCRUD, TouchpointCRUD,...)*
+Abstraktion über lesenden und schreibenden Datenzugriffen für die Geschäftslogigschicht einer Anwendung. *(CustomerCRUD, TouchpointCRUD,...)*
 
 ##### 2. Wie werden DAOs aktuell in Java EE realisiert?
 
