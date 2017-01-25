@@ -1086,18 +1086,46 @@ Falls außerhalb der Methode Fehler auftreten, müssen Änderungen die durch die
 #### EJBs und Web Services
 
 ##### 1. Was ist erforderlich, um die Methoden einer EJB Implementierung direkt als Operationen eines JAX-WS Web Service verfügbar zu machen?
+
+- Deklaration eines EJB Interfaces als `WebService`
+- Deklaration des Interfaces als `endpointInterface` in der EJB
+
 ##### 2. Können EJBs in JBoss als Web Service via JAX-RS bereit gestellt werden?
+
+Ja.
+
 ##### 3. Können Stateful EJBs als JAX-WS oder JAX-RS Web Services bereit gestellt werden? Motivieren Sie ihre Antwort.
- > Nein, weil die genannten Web Services an sich zustandslos sind
+
+Nein, weil die genannten Web Services an sich zustandslos sind.
 
 #### Interzeptoren
 
 ##### 1. Was sind Interzeptoren?
+
+Anwendungskomponenten, welche in die unmittelbare Kommunikation zwischen zwei Komponenten "eingehangen" werden können.
+
 ##### 2. Was sind, verallgemeinert ausgedrückt, Funktionen, die durch Interzeptoren umgesetzt werden?
+
+- Vor-, Nachverarbeitung von Daten
+- Cross-Cutting-Concerns
+    - Allgemeine Funktionalitäten
+
 ##### 3. Nennen Sie drei konkrete Beispiele für Funktionen, die üblicherweise durch Interzeptoren umgesetzt werden können.
+
+- Logging
+- Profiling (Zeitmessung)
+- Authentifizierung
+
 ##### 4. Wie können Sie in Java EE Interzeptoren auf die Eigenschaften des zu bearbeitenden Methodenaufrufs zugreifen?
+
+Mittels eines `InvocationContext` Objekts, das den Aufruf repräsentiert. Dieses enthält:
+
+- die aufgerufene Methode als `Method` Objekt
+- die Übergebenden Argumentwerte als `Array`
+
 ##### 5. Welche Komponenten von Java EE Web Applikationen werden üblicherweise als Interzeptoren verwendet?
 
+Filter.
 
 ## 10 Java Server Faces (JSF)
 
