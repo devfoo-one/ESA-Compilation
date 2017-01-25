@@ -1016,19 +1016,72 @@ DTO´s ermöglichen die Entkoppelung der Datenhaltungsschicht (hinsichtlich des 
 #### Class Loading und Enterprise Archives
 
 ##### 1. Warum können in einem Java EE Anwendungsserver zwei gleichzeitige betriebene Anwendungen verschiedene Versionen derselben Klassen verwenden?
+
+Weil jede Anwendung einen eigenen Classloader benutzt.
+
 ##### 2. Wie können in JBoss AS 7.1. Klassen zum gemeinsamen Klassenpfad aller Anwendungen hinzugefügt werden?
+
+Durch einen Export Mechanismus
+- in `jboss-deployment-structure.xml` konfiguriert
+- exportierte Module können in `MANIFEST.MF` anderer Module als Abhängigkeiten deklariert werden
+
 ##### 3. Was ist ein EAR Archiv?
+
+Sammlung von Java EE Modulen zum Zwecke der Ausführung durch einen Applikation Server.
+Innerhalb einer EAR Einheit können modulübergreifend Bibliotheken zur Verfügung gestellt werden.
+
 ##### 4. Welche Typen von Java EE Modulen kann ein EAR Archiv enthalten?
+
+EJB Module, Web Applikationen und gewöhnliche Java Bibliotheken
+
 ##### 5. Für welche Clients eines Anwendungsservers ist es relevant zu wissen, ob EJBs innerhalb eigenständiger Module oder durch Submodule eines EAR bereit gestellt werden, und für welche Clients spielt dies keine Rolle?
+
+*Nur relevant für Clients, welche auf die EJB´s via JNDI zugreifen.* Bei Zugriff via Web Services nicht relevant.
 
 #### Transaktionen
 
 ##### 1. Wann erstellt ein Java EE Anwendungsserver eine Transaktion, ohne dass Sie als Entwickler dafür Vorkehrung treffen müssen?
+
+beim Zugriff auf EJB Methoden durch einen EJB Container.
+
 ##### 2. Weshalb sind Transaktionen für die Ausführung geschäftslogische Operationen wichtig?
+
+- Gewährleistung der Datenkonsistenz
+- Rollback im Fall von Fehlern
+
 ##### 3. Wann werden bei Verwendung von transaktionalen EJB Methoden schreibende Zugriffe auf die verwendete Datenquelle durchgeführt?
+
+*NACH* Ausführung der Methode und *VOR* Rückgabe an die aufrufende Methode.
+
 ##### 4. Nennen Sie 4 Varianten, wie Entwickler mittels der Verwendung der `@TransactionAttribute` das transaktionale Verhalten von EJB Methoden beeinflussen können?
+
+Beispiel:
+
+```java
+@Stateless
+public class PointOfSaleCRUDStateless implements PointOfSaleCRUDRemote, PointOfSaleCRUDLocal {
+	@PersistenceContext(unitName = "crm_erp_PU")
+	private EntityManager em;
+
+	@Override
+	@TransactionAttribute(TransactionAttributeType.REQUIRES_NEW)
+	public PointOfSale createPointOfSale(PointOfSale pos) {...}
+...
+}
+```
+
+- `REQUIRES` bestehende Transaktion soll verwendet oder neu geschaffen werden falls noch nicht existent
+- `REQUIRES_NEW` Transaktion soll neu geschaffen werden
+- `MANDATORY` bestehende Transaktion muss vorhanden sein
+- `NEVER` es darf keine Transaktion vorliegen
+
 ##### 5. Welche Einschränkung besteht bezüglich der Anwendbarkeit der `@TransactionAttribute` Deklaration?
+
+Keine Persistence-Unit übergreifenden Transaktionen.
+
 ##### 6. Was muss bei der Verwendung einer transaktional als `RequiresNew` gekennzeichneten Methode beachtet werden?
+
+Falls außerhalb der Methode Fehler auftreten, müssen Änderungen die durch diese Methode vorgenommen wurden, evtl. manuell rückgängig gemacht werden.
 
 #### EJBs und Web Services
 
