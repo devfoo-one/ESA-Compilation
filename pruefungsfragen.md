@@ -952,18 +952,53 @@ Alternativ:
 #### Session Facade und Business Delegate
 
 ##### 1. Was ist Motivation dafür, die Geschäftslogikschicht einer Anwendung um eine Session Facade zu erweitern?
+
+Verhinderung der Mehrfachübertragung von Daten zwischen Client und Server.
+
+> Es soll verhindert werden, dass Daten zur Ausführung von Geschäftsoperationen mehrfach übertragen und übertragungsbezogen verarbeitet werden müssen.
+
 ##### 2. Wie wird eine Session Facade in Java EE umgesetzt?
+
+Als `Stateful` *Session Bean*
+
 ##### 3. Wie sollte die Session Facade auf die von ihr verwendeten Geschäftslogikkomponenten zugreifen?
+
+Über `@Local` Interfaces und mittels Dependeny Injection.
+
 ##### 4. In welchem Zusammenhang stehen Session Facade und Business Delegate?
+
+Business Delegate ist die Entsprechung der Session Facade auf Ebene der Präsentationsschicht.
+*(Implementierung auf "Clientseite")*
+
 ##### 5. Zu welcher Komponente einer MVC Architektur gehört ein Business Delegate?
+
+zum *Model*
 
 #### DAO und DTO
 
+- *Data Access Object*
+- *Data Transfer Object*
+
 ##### 1. Was ist die Aufgabe eines DAO?
+
+Abstraktion über lesenden und schreibenden Datenzugriffen für die Geschäftslogigschickt einer Anwendung. *(CustomerCRUD, TouchpointCRUD,...)*
+
 ##### 2. Wie werden DAOs aktuell in Java EE realisiert?
+
+Als `@Stateless` EJB´s
+
 ##### 3. Wie greift die Geschäftslogikschicht einer Java EE Anwendung auf DAOs zu?
+
+mittels *Dependency Injection*.
+
 ##### 4. Was sind DTOs und weshalb sind sie in aktuellen Java EE Anwendungen nicht mehr notwendigerweise erforderlich?
+
+DTOs stellen Daten aus der Datenhaltungsschicht für die Geschäftslogikschicht zur Verfügung.
+Werden in aktueller Java EE Implementierung nicht mehr benötigt, da hierfür Entities verwendet werden die serialisierbar und auch außerhalb des Persistenzkontexts verwendet werden können.
+
 ##### 5. Weshalb könnte die Verwendung von DTOs auch im Rahmen einer aktuellen Java EE Anwendung in Betracht gezogen werden?
+
+DTO´s ermöglichen die Entkoppelung der Datenhaltungsschicht (hinsichtlich des Datenmodells) von der Geschäftslogikschicht.
 
 ## 9 Erweiterte Funktionen für EJB (ADD)
 
