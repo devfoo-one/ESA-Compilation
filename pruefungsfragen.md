@@ -565,7 +565,7 @@ ServletContext ctx = (ServletContext) wscontext.getMessageContext()
 
 ##### 6. Können in Javaklassen, die mittels JAX-WS als Web Services verfügbar gemacht werden, Instanzattribute verwendet werden, um über Daten über mehrere Aufrufe eines Clients hinweg zu speichern? Begründen Sie Ihre Antwort.
 
-***LAUT SCRIPT 5.3.2 besteht über den `ServletContext` und darüber auf die `HttpSession`. Laut Antwortenliste jedoch "Nein, denn Web Services sind zustandslos"***
+Nein, denn Web Services sind zustandslos.
 
 ##### 7. Welchen offensichtlichen Unterschied weisen die auf Basis einer WSDL Beschreibung automatisch generierten Klassen des von einem Service verwendeten Datenmodells im Ggs. zu den originalen Klassen auf?
 
